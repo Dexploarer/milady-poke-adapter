@@ -14,6 +14,28 @@ export interface PokeCalendarItem {
   timezone?: string;
 }
 
+export interface PokeRecipeInput {
+  name: string;
+  description: string;
+  context: string;
+}
+
+export interface PokeIntegrationItem {
+  id: string;
+  name: string;
+  status?: string;
+  provider?: string;
+  description?: string;
+}
+
+export interface PokeIntegrationActionInput {
+  operation: "list" | "connect" | "disconnect" | "enable" | "disable";
+  integrationId?: string;
+  integrationName?: string;
+  provider?: string;
+  description?: string;
+}
+
 export interface PokeEmailDraftInput {
   to: string[];
   cc?: string[];
@@ -45,6 +67,9 @@ export interface PokeTransport {
   listCalendars(input: { userEmailAddressToSendFrom: string }): Promise<unknown>;
   createEmailDraft(input: PokeEmailDraftInput): Promise<unknown>;
   createCalendarDraft(input: PokeCalendarDraftInput): Promise<unknown>;
+  createRecipe(input: PokeRecipeInput): Promise<unknown>;
+  listIntegrations(input?: { query?: string }): Promise<unknown>;
+  manageIntegration(input: PokeIntegrationActionInput): Promise<unknown>;
 }
 
 export function createUnsupportedTransport(): PokeTransport {
@@ -66,6 +91,15 @@ export function createUnsupportedTransport(): PokeTransport {
     },
     async createCalendarDraft() {
       fail("createCalendarDraft");
+    },
+    async createRecipe() {
+      fail("createRecipe");
+    },
+    async listIntegrations() {
+      fail("listIntegrations");
+    },
+    async manageIntegration() {
+      fail("manageIntegration");
     }
   };
 }

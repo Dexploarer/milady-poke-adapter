@@ -7,18 +7,22 @@ import { createSearchEmailsAction } from "./actions/searchEmails.js";
 import { createLookupCalendarsAction } from "./actions/lookupCalendars.js";
 import { createCreateEmailDraftAction } from "./actions/createEmailDraft.js";
 import { createCreateCalendarDraftAction } from "./actions/createCalendarDraft.js";
+import { createCreateRecipeAction } from "./actions/createRecipe.js";
+import { createManageIntegrationsAction } from "./actions/manageIntegrations.js";
 import { createEmailContextProvider } from "./providers/emailContextProvider.js";
 import { createCalendarContextProvider } from "./providers/calendarContextProvider.js";
 
 export function createPokePlugin(transport: PokeTransport): Plugin {
   return {
     name: "milady-poke-adapter",
-    description: "ElizaOS adapter for Poke email and calendar capabilities",
+    description: "ElizaOS adapter for Poke email, calendar, recipe, and integration capabilities",
     actions: [
       createSearchEmailsAction(transport),
       createLookupCalendarsAction(transport),
       createCreateEmailDraftAction(transport),
-      createCreateCalendarDraftAction(transport)
+      createCreateCalendarDraftAction(transport),
+      createCreateRecipeAction(transport),
+      createManageIntegrationsAction(transport)
     ],
     providers: [
       createEmailContextProvider(transport),

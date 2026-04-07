@@ -1,6 +1,8 @@
 import type {
   PokeCalendarDraftInput,
   PokeEmailDraftInput,
+  PokeIntegrationActionInput,
+  PokeRecipeInput,
   PokeTransport
 } from "../types.js";
 
@@ -36,6 +38,18 @@ export class PokeClient {
       ...input,
       userEmailAddressToSendFrom: this.userEmailAddress
     });
+  }
+
+  async createRecipe(input: PokeRecipeInput) {
+    return await this.transport.createRecipe(input);
+  }
+
+  async listIntegrations(query?: string) {
+    return await this.transport.listIntegrations({ query });
+  }
+
+  async manageIntegration(input: PokeIntegrationActionInput) {
+    return await this.transport.manageIntegration(input);
   }
 }
 
